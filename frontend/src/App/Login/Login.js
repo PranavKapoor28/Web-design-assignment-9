@@ -4,9 +4,15 @@ import PageCard from "../../Components/PageCard/PageCard";
 import axios from "axios";
 import classes from "./Login.module.css";
 import Form from "../../Components/Forms/form.js";
-
+import validator from 'validator';
+import { validPassword } from './regex.js';
 
 const Login = () => {
+
+
+    const [emailError, setEmailError] = useState('')
+    const [pwdError, setPwdError] = useState(false);
+
 
     const [data, setdata] = useState({
         email: "",
@@ -14,14 +20,49 @@ const Login = () => {
     });
     const [message, setmessage] = useState("");
 
-    const change = (e) => {
+    const changeEmail = (e) => {
+
+        var email = e.target.value
+
+        if (!validator.isEmail(email)) {
+
+            setEmailError('Enter valid Email!')
+        }
+        else {
+            setEmailError('');
+        }
+
         const temp = { ...data };
         temp[e.target.name] = e.target.value;
         setdata(temp);
+
+
     };
 
-    const submit = async () => {
+    const changePass = (value) => {
+
+
+        if (validPassword.test(value)) {
+            setPwdError("Password is not valid");
+        }
+        else {
+            setPwdError("");
+        }
+
+        const temp = { ...data };
+        temp[value.target.name] = value.target.value;
+        setdata(temp);
+
+
+    };
+
+
+
+    const submit = async (e) => {
+
+
         try {
+
             const apiData = await axios.post(
                 "http://localhost:8880/user/login",
                 data
@@ -39,6 +80,9 @@ const Login = () => {
             console.log(error.response);
             setmessage(error.response.data.error);
         }
+
+
+
     };
 
 
@@ -62,8 +106,13 @@ const Login = () => {
                     type="email"
                     placeholder="harvey@pearsonspecter.com"
                     value={data.email}
-                    onChange={change}
+                    onChange={(e) => changeEmail(e)}
                 />
+                <span style={{
+                    fontWeight: 'bold',
+                    color: 'red',
+                }}>{emailError}</span>
+
                 <input
                     password="*******"
                     type="password"
@@ -71,15 +120,24 @@ const Login = () => {
                     name="password"
                     placeholder="Enter Password"
                     value={data.password}
-                    onChange={change}
+                    onChange={(e) => changePass(e)}
                 />
+                <span style={{
+                    fontWeight: 'bold',
+                    color: 'red',
+                }}>{pwdError}</span>
                 <button onClick={submit} className={classes.Submit}>
                     Submit
                 </button>
                 <br />
-                <div>{message}</div>
+                <div style={{
+                    fontWeight: 'bold',
+                    color: 'red',
+                    backgroundColor: 'yellow',
+                    padding: '4px 4px 4px 4px'
+                }}>{message}</div>
             </div>
-        </div>
+        </div >
     );
 
 };

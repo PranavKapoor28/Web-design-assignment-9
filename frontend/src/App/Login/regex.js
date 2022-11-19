@@ -1,0 +1,1 @@
+export const validPassword = new RegExp('/^[A-Za-z]\w{7,14}$/');
