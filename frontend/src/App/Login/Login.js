@@ -10,7 +10,7 @@ import { validPassword } from './regex.js';
 const Login = () => {
 
 
-    const [emailError, setEmailError] = useState('')
+    const [emailErro, setEmailError] = useState('')
     const [pwdError, setPwdError] = useState(false);
 
 
@@ -111,7 +111,7 @@ const Login = () => {
                 <span style={{
                     fontWeight: 'bold',
                     color: 'red',
-                }}>{emailError}</span>
+                }}>{emailErro}</span>
 
                 <input
                     password="*******"
