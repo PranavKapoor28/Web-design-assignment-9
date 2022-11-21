@@ -1,0 +1,21 @@
+.Title {
+  width: 50%;
+  margin: auto;
+  font-size: larger;
+  text-align: center;
+  justify-content: center;
+  align-items: baseline;
+  padding: 1em;
+  margin-top: 3em;
+  /* background-color: rgb(71, 38, 255); */
+  color: #fff;
+}
+
+#table tbody tr:hover {
+  background-color: rgb(60, 67, 73);
+}
+
+#table tbody tr {
+  color: black;
+  background-color: rgb(0, 0, 0);
+}

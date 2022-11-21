@@ -1,0 +1,14 @@
+.Container {
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 5%;
+  margin-right: 5%;
+  border: 1px solid rgb(255, 255, 255);
+  padding: 80px;
+  text-align: center;
+  color: white;
+}
+.Container div {
+  margin-top: 50px;
+  font-size: larger;
+}

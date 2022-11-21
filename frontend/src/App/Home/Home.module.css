@@ -1,0 +1,35 @@
+.main {
+  height: 200%;
+  width: 100%;
+}
+.mainInput {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.img-wrapper div {
+  flex: 0 1 33%;
+}
+
+.img-wrapper div img {
+  height: 2px;
+  width: 2px;
+}
+
+@media (max-width: 1000px) {
+  .img-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+}
