@@ -1,6 +1,6 @@
 import express from "express";
 import router from "./routes";
-import dbConnect from "./utils/mongodb";
+import dbConnect from "./services/mongodb";
 import cors from "cors";
 require("dotenv").config();
 
