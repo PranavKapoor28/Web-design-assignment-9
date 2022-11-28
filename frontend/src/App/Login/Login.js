@@ -12,7 +12,7 @@ const Login = () => {
 
 
     const [emailErro, setEmailError] = useState('')
-    const [pwdError, setPwdError] = useState(false);
+    const [pwdError, setPwdErro] = useState(false);
 
 
     const [data, setdata] = useState({
