@@ -6,6 +6,7 @@ import classes from "./Login.module.css";
 import Form from "../../Components/Forms/form.js";
 import validator from 'validator';
 import { validPassword } from './regex.js';
+import { passwordStrength } from "check-password-strength";
 
 const Login = () => {
 
@@ -41,14 +42,6 @@ const Login = () => {
 
     const changePass = (value) => {
 
-
-        if (validPassword.test(value)) {
-            setPwdError("Password is not valid");
-        }
-        else {
-            setPwdError("");
-        }
-
         const temp = { ...data };
         temp[value.target.name] = value.target.value;
         setdata(temp);
@@ -60,9 +53,31 @@ const Login = () => {
 
     const submit = async (e) => {
 
+        try {
+            if (data.email === "") {
+                throw new Error("Empty Email");
+            }
+            const pattern = /[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/;
+            const result = pattern.test(data.email);
+            if (result !== true) {
+                throw new Error("Invalid email format");
+            }
+            if (data.password === "") {
+                throw new Error("Empty Password");
+            }
+            const ans = passwordStrength(data.password).value;
+            console.log(ans);
+            if (ans === "Weak" || ans === "Too weak")
+                throw new Error("Password is Weak!! Kindly use minimum 1 Uppercase, 1 Lowercase and a minimum lemgth of 8 characters");
+
+        } catch (error) {
+            console.log(error.message);
+
+            setmessage(error.message);
+            return;
+        }
 
         try {
-
             const apiData = await axios.post(
                 "http://localhost:8880/user/login",
                 data
@@ -120,7 +135,7 @@ const Login = () => {
                     name="password"
                     placeholder="Enter Password"
                     value={data.password}
-                    onChange={(e) => changePass(e)}
+                    onChange={changePass}
                 />
                 <span style={{
                     fontWeight: 'bold',
